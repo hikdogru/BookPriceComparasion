@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "BookPriceComparasion.Entity/1.0.0": {
+        "runtime": {
+          "BookPriceComparasion.Entity.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BookPriceComparasion.Entity/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

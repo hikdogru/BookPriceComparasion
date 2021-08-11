@@ -1,0 +1,12 @@
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\bin\Debug\net5.0\BookPriceComparasion.Core.deps.json
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\bin\Debug\net5.0\BookPriceComparasion.Core.dll
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\bin\Debug\net5.0\ref\BookPriceComparasion.Core.dll
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\bin\Debug\net5.0\BookPriceComparasion.Core.pdb
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\obj\Debug\net5.0\BookPriceComparasion.Core.csproj.AssemblyReference.cache
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\obj\Debug\net5.0\BookPriceComparasion.Core.GeneratedMSBuildEditorConfig.editorconfig
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\obj\Debug\net5.0\BookPriceComparasion.Core.AssemblyInfoInputs.cache
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\obj\Debug\net5.0\BookPriceComparasion.Core.AssemblyInfo.cs
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\obj\Debug\net5.0\BookPriceComparasion.Core.csproj.CoreCompileInputs.cache
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\obj\Debug\net5.0\BookPriceComparasion.Core.dll
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\obj\Debug\net5.0\ref\BookPriceComparasion.Core.dll
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.Core\obj\Debug\net5.0\BookPriceComparasion.Core.pdb

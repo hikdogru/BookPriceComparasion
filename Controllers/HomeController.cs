@@ -1,13 +1,9 @@
-﻿using BookPriceComparasion.Models;
+﻿using System.Diagnostics;
+using BookPriceComparasion.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace BookPriceComparasion.Controllers
+namespace BookPriceComparasion.WebUI.Controllers
 {
     public class HomeController : Controller
     {
@@ -20,7 +16,7 @@ namespace BookPriceComparasion.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("Index","Hello, .Net Core");
         }
 
         public IActionResult Privacy()

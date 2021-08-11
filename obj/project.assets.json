@@ -15,9 +15,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.csproj",
-      "projectName": "BookPriceComparasion",
-      "projectPath": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.csproj",
+      "projectUniqueName": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI.csproj",
+      "projectName": "BookPriceComparasion.WebUI",
+      "projectPath": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI.csproj",
       "packagesPath": "C:\\Users\\Halil~\\.nuget\\packages\\",
       "outputPath": "H:\\GithubProjects\\BookPriceComparasion\\obj\\",
       "projectStyle": "PackageReference",

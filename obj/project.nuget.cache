@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nAbaZdJ05pDb1hXZAEZv8iNTVia1DMIH3+Jlsr2kKvQwouBWkdlyKUfjmvS87BuGLoCtnIlSgLWeT1Z/Pz/Jbw==",
+  "dgSpecHash": "RF0RUjO7DYTGjWppxzQKTqDzbOTKONOeAe+pm7aCc6ON0DcBtFUrLDGDgmkQd8b1gGGKpM7dNlW/lXebxRAKfw==",
   "success": true,
-  "projectFilePath": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.csproj",
+  "projectFilePath": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

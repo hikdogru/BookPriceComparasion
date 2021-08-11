@@ -1,6 +1,4 @@
-using System;
-
-namespace BookPriceComparasion.Models
+namespace BookPriceComparasion.WebUI.Models
 {
     public class ErrorViewModel
     {

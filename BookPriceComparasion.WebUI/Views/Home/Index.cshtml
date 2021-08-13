@@ -4,16 +4,15 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome @Model</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-    <h3>Amazon</h3>
-    <img src="@TempData["AmazonBookImage"].ToString()" alt="Amazon Image" />
-
-    <hr />
+    <form method="post" asp-action="Search" , asp-controller="Home">
+        <input type="text" name="query" id="query" placeholder="Search Query" autocomplete="off" />
+        <button type="submit">Search</button>
+    </form>
 
 
-    <h3>Bkmkitap</h3>
-    <img src="@TempData["BkmBookImage"].ToString()" alt="Bkm Image" />
+
+
+
+
 
 </div>

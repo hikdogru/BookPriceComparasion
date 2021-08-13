@@ -40,3 +40,4 @@ H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\obj\Debug\net5
 H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\obj\Debug\net5.0\staticwebassets\BookPriceComparasion.WebUI.StaticWebAssets.xml
 H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\bin\Debug\net5.0\Newtonsoft.Json.dll
 H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\bin\Debug\net5.0\WebDriver.dll
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\obj\Debug\net5.0\Razor\Views\Home\SearchResults.cshtml.g.cs

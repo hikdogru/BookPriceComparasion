@@ -2,14 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Internal;
 using OpenQA.Selenium.Support.UI;
 
 namespace BookPriceComparasion.WebUI.Controllers
@@ -76,7 +74,7 @@ namespace BookPriceComparasion.WebUI.Controllers
             return View("Index", "Hi");
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Search(string query)
         {
             if (!String.IsNullOrEmpty(query))
@@ -91,16 +89,16 @@ namespace BookPriceComparasion.WebUI.Controllers
             _threadAmazon.Start();
 
 
-
             _threadKidega = new Thread(() =>
-                FindElementKidega(By.CssSelector("img[class='lazyload activeted loadedImg']"), _urlList[2], "Kidega"));
+                FindElementKidega(new[] { By.CssSelector("img[class='lazyload activeted loadedImg']"), By.CssSelector("img[class*='stImage']") }, new[] { _urlList[2], _urlList[1] },
+                    new[] { "Kidega", "Bkm" }));
             _threadKidega.Start();
 
-            _threadBkm = new Thread(() => FindElementBkm(By.CssSelector("img[class*='stImage']"), _urlList[1], "Bkm"));
-            _threadBkm.Start();
+            //_threadBkm = new Thread(() => FindElementBkm(By.CssSelector("img[class*='stImage']"), _urlList[1], "Bkm"));
+            //_threadBkm.Start();
 
             _threadAmazon.Join();
-            _threadBkm.Join();
+            //_threadBkm.Join();
             _threadKidega.Join();
 
 
@@ -118,24 +116,33 @@ namespace BookPriceComparasion.WebUI.Controllers
             _chromeOptions.AddArgument("--ignore-certificate-errors");
             _chromeOptions.AddArgument("no-sandbox");
             _chromeOptions.AddArgument("--disable-gpu");
-            _chromeOptions.AddArgument("--headless");
+           //_chromeOptions.AddArgument("--headless");
         }
 
         public void FindElementAmazon(By[] by, string[] url, string[] websiteName)
         {
+
             for (int i = 0; i < by.Length; i++)
             {
-                using var driver = new ChromeDriver(_chromeOptions);
-                driver.Navigate().GoToUrl(url[i] + _query);
-                _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-                _wait.Until(webDriver => webDriver.FindElement(by[i]).Displayed);
-                IWebElement firstResult = driver.FindElement(by[i]);
+                try
+                {
+                    using var driver = new ChromeDriver(_chromeOptions);
+                    driver.Navigate().GoToUrl(url[i] + _query);
+                    if (websiteName[i] == "Idefix") Thread.Sleep(1000);
+                    _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+                    _wait.Until(webDriver => webDriver.FindElement(by[i]).Displayed);
+                    var elements = driver.FindElements(by[i]);
 
-                TempData[$"{websiteName[i]}BookImage"] = firstResult.GetAttribute("src");
+                    TempData[$"{websiteName[i]}BookImage"] = elements.Select(x => x.GetAttribute("src")).Take(10).ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
-
-
         }
+
 
         public void FindElementBkm(By by, string url, string websiteName)
         {
@@ -150,14 +157,28 @@ namespace BookPriceComparasion.WebUI.Controllers
 
         }
 
-        public void FindElementKidega(By by, string url, string websiteName)
+        public void FindElementKidega(By[] by, string[] url, string[] websiteName)
         {
-            using var driver = new ChromeDriver(_chromeOptions);
-            driver.Navigate().GoToUrl(url + _query);
-            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-            _wait.Until(webDriver => webDriver.FindElement(by).Displayed);
-            IWebElement firstResult = driver.FindElement(by);
-            TempData["KidegaBookImage"] = firstResult.GetAttribute("src");
+            for (int i = 0; i < by.Length; i++)
+            {
+                using var driver = new ChromeDriver(_chromeOptions);
+                driver.Navigate().GoToUrl(url[i] + _query);
+                if (websiteName[i] == "Bkm")
+                {
+                    IJavaScriptExecutor js = driver;
+                    //js.ExecuteScript("window.scrollTo(0, 400)");
+                    js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+                    Thread.Sleep(1000);
+                }
+                _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+                _wait.Until(webDriver => webDriver.FindElement(by[i]).Displayed);
+                
+                var elements = driver.FindElements(by[i]);
+                TempData[$"{websiteName[i]}BookImage"] = elements.Select(x => x.GetAttribute("src")).Take(10).ToList();
+
+            }
+
+
         }
 
         public IActionResult Privacy()

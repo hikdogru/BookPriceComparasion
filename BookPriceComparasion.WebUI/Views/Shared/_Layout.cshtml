@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - BookPriceComparasion.WebUI</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    @await RenderSectionAsync("Styles", false)
 </head>
 <body>
     <header>
@@ -30,6 +31,8 @@
         </nav>
     </header>
     <div class="container">
+
+        <partial name="_BusyIndicatorPartial" />
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -44,5 +47,20 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+<script>
+    function displayBusyIndicator() {
+        $('.loader').show();
+    }
+
+    $(window).on('beforeunload', function(){
+        displayBusyIndicator();
+    });
+
+    $(document).on('submit', 'form', function () {
+        displayBusyIndicator();
+    });
+
+</script>
 </body>
 </html>

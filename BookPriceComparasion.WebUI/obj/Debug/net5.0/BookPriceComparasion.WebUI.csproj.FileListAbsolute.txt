@@ -37,7 +37,14 @@ H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\obj\Debug\net5
 H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\obj\Debug\net5.0\BookPriceComparasion.WebUI.pdb
 H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\obj\Debug\net5.0\BookPriceComparasion.WebUI.genruntimeconfig.cache
 H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\obj\Debug\net5.0\BookPriceComparasion.WebUI.csproj.CopyComplete
-H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\obj\Debug\net5.0\staticwebassets\BookPriceComparasion.WebUI.StaticWebAssets.xml
 H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\bin\Debug\net5.0\Newtonsoft.Json.dll
 H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\bin\Debug\net5.0\WebDriver.dll
 H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\obj\Debug\net5.0\Razor\Views\Home\SearchResults.cshtml.g.cs
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\bin\Debug\net5.0\AsyncChromeDriver.dll
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\bin\Debug\net5.0\AsyncWebDriver.dll
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\bin\Debug\net5.0\IAsyncWebBrowserClient.dll
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\bin\Debug\net5.0\SuperSocket.ClientEngine.dll
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\bin\Debug\net5.0\WebSocket4Net.dll
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\bin\Debug\net5.0\ChromeDevToolsClient.dll
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\obj\Debug\net5.0\staticwebassets\BookPriceComparasion.WebUI.StaticWebAssets.xml
+H:\GithubProjects\BookPriceComparasion\BookPriceComparasion.WebUI\obj\Debug\net5.0\Razor\Views\Shared\_BusyIndicatorPartial.cshtml.g.cs

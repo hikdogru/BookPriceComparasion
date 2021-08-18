@@ -1,30 +1,46 @@
-﻿@model dynamic
-
-@{
+﻿@{
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
 
 <div class="row">
-    <div class="col-md-3">
-        <h3>Amazon</h3>
-        <img src="@TempData["AmazonBookImage"]?.ToString()" alt="Amazon Image" />
-    </div>
 
-    <div class="col-md-3">
-        <h3>Bkmkitap</h3>
-        <img src="@TempData["BkmBookImage"]?.ToString()" alt="Bkm Image" />
-    </div>
+    @foreach (var image in (List<string>)TempData["AmazonBookImage"])
+    {
+        <div class="col-md-3">
+            <h3>Amazon</h3>
+            <img src="@image" alt="Amazon Image" />
+        </div>
+    }
+    <hr />
 
 
-    <div class="col-md-3">
-        <h3>Kidega</h3>
-        <img src="@TempData["KidegaBookImage"]?.ToString()" alt="Kidega Image" />
-    </div>
+    @foreach (var image in (List<string>)TempData["KidegaBookImage"])
+    {
+        <div class="col-md-3">
+            <h3>Kidega</h3>
+            <img src="@image" alt="Kidega Image" />
+        </div>
+    }
 
-    <div class="col-md-3">
-        <h3>Idefix</h3>
-        <img src="@TempData["IdefixBookImage"]?.ToString()" alt="Idefix Image" />
-    </div>
+    @if (TempData["BkmBookImage"] != null)
+    {
+        foreach (var image in (List<string>)TempData["BkmBookImage"])
+        {
+            <div class="col-md-3">
+                <h3>Bkmkitap</h3>
+                <img src="@image" alt="Bkm Image" />
+            </div>
+
+        }
+    }
+    
+    @foreach (var image in (List<string>) TempData["IdefixBookImage"])
+    {
+        <div class="col-md-3">
+            <h3>Idefix</h3>
+            <img src="@image" alt="Idefix Image"/>
+        </div>
+    }
 </div>

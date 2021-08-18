@@ -15,11 +15,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.Core\\BookPriceComparasion.Core.csproj",
+      "projectUniqueName": "H:\\Halil-Backup\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.Core\\BookPriceComparasion.Core.csproj",
       "projectName": "BookPriceComparasion.Core",
-      "projectPath": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.Core\\BookPriceComparasion.Core.csproj",
+      "projectPath": "H:\\Halil-Backup\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.Core\\BookPriceComparasion.Core.csproj",
       "packagesPath": "C:\\Users\\Halil~\\.nuget\\packages\\",
-      "outputPath": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.Core\\obj\\",
+      "outputPath": "H:\\Halil-Backup\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

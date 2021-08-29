@@ -1,17 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31606.5
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookPriceComparasion.WebUI", "BookPriceComparasion.WebUI\BookPriceComparasion.WebUI.csproj", "{8D67AE1A-2D94-4A7C-BE6D-406A2F495F94}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookPriceComparasion.DAL", "BookPriceComparasion.DAL\BookPriceComparasion.DAL.csproj", "{94CED5E3-6BC7-410E-8010-9843CA17CAE7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookPriceComparasion.Core", "BookPriceComparasion.Core\BookPriceComparasion.Core.csproj", "{A08331E2-D178-4445-AD5A-6DDCE27499F8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookPriceComparasion.Entity", "BookPriceComparasion.Entity\BookPriceComparasion.Entity.csproj", "{0B956C74-E077-4A17-BD5C-A7B69807E98F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookPriceComparasion.Business", "BookPriceComparasion.Business\BookPriceComparasion.Business.csproj", "{BF70C9A2-C720-43A1-AD27-7B35BDC5F083}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookPriceComparasion.WebUI", "BookPriceComparasion.WebUI\BookPriceComparasion.WebUI.csproj", "{8D67AE1A-2D94-4A7C-BE6D-406A2F495F94}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,22 +15,6 @@ Global
 		{8D67AE1A-2D94-4A7C-BE6D-406A2F495F94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D67AE1A-2D94-4A7C-BE6D-406A2F495F94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D67AE1A-2D94-4A7C-BE6D-406A2F495F94}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94CED5E3-6BC7-410E-8010-9843CA17CAE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94CED5E3-6BC7-410E-8010-9843CA17CAE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94CED5E3-6BC7-410E-8010-9843CA17CAE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94CED5E3-6BC7-410E-8010-9843CA17CAE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A08331E2-D178-4445-AD5A-6DDCE27499F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A08331E2-D178-4445-AD5A-6DDCE27499F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A08331E2-D178-4445-AD5A-6DDCE27499F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A08331E2-D178-4445-AD5A-6DDCE27499F8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B956C74-E077-4A17-BD5C-A7B69807E98F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B956C74-E077-4A17-BD5C-A7B69807E98F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B956C74-E077-4A17-BD5C-A7B69807E98F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B956C74-E077-4A17-BD5C-A7B69807E98F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF70C9A2-C720-43A1-AD27-7B35BDC5F083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF70C9A2-C720-43A1-AD27-7B35BDC5F083}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF70C9A2-C720-43A1-AD27-7B35BDC5F083}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF70C9A2-C720-43A1-AD27-7B35BDC5F083}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -7,23 +7,23 @@ using System.Linq;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Internal;
-using OpenQA.Selenium.Support.UI;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using System.IO;
+using OpenQA.Selenium.Interactions;
 
 namespace BookPriceComparasion.WebUI.Controllers
 {
     public class HomeController : Controller
     {
         private static ChromeOptions _chromeOptions;
-        private static Thread _threadAmazon;
-        private static Thread _threadKidega;
-        private static Thread _threadBkm;
-        private static WebDriverWait _wait;
+        private static Thread _thread1;
+        private static Thread _thread2;
+        private static List<BookViewModel> _tempBooks = new();
 
-
+        private readonly List<Book> _books = new();
         private readonly ILogger<HomeController> _logger;
-        private string[] _urlList = { "https://www.amazon.com.tr/s?k=", "https://www.bkmkitap.com/arama?q=", "https://kidega.com/arama/", "https://www.idefix.com/search/?Q=" };
-        private string _query = "Otomatik Portakal";
+        private string _query = "";
 
 
         public HomeController(ILogger<HomeController> logger)
@@ -33,77 +33,64 @@ namespace BookPriceComparasion.WebUI.Controllers
 
         public IActionResult Index()
         {
-
-            //Stopwatch stopwatch = Stopwatch.StartNew();
-
-
-
-            //foreach (var url in _urlList)
-            //{
-            //    //driver.FindElement(By.Name("q")).SendKeys("cheese" + Keys.Enter);
-            //    if (url.Contains("amazon"))
-            //    {
-            //        _threadAmazon = new Thread(() =>
-            //            FindElementAmazon(By.CssSelector("img[class='s-image']"), url, "Amazon"));
-            //        _threadAmazon.Start();
-
-
-
-            //    }
-            //    else if (url.Contains("kidega"))
-            //    {
-            //        _threadKidega = new Thread(() =>
-            //            FindElementKidega(By.CssSelector("img[class='lazyload activeted loadedImg']"), url, "Kidega"));
-            //        _threadKidega.Start();
-
-            //    }
-            //    else
-            //    {
-            //        _threadBkm = new Thread(() => FindElementBkm(By.CssSelector("img[class*='stImage']"), url, "Bkm"));
-            //        _threadBkm.Start();
-
-            //    }
-            //}
-
-
-
-            //Debug.WriteLine("**************************************");
-            //Debug.WriteLine($"Elapsed time {stopwatch.ElapsedMilliseconds} ");
-            //stopwatch.Stop();
-
-            return View("Index", "Hi");
+            return View("Index");
         }
+
 
         [HttpGet]
         public IActionResult Search(string query)
         {
+            if (_tempBooks.Where(b => b.Name.ToLower() == query.ToLower()).Count() == 0) _tempBooks.Clear();
+            string fileName = $"{Directory.GetCurrentDirectory()}/Controllers/AllBookXPath.json";
+            var file = System.IO.File.ReadAllText(fileName);
+            var json = JsonConvert.DeserializeObject<List<ItemXPath>>(file);
+
+            Stopwatch stopwatch = Stopwatch.StartNew();
+
             if (!String.IsNullOrEmpty(query))
             {
                 _query = query;
             }
 
             GetChromeOptions();
-            _threadAmazon = new Thread(() =>
-                FindElementAmazon(new[] { By.CssSelector("img[class='s-image']"), By.CssSelector("img[class=' lazyloaded']") }, new[] { _urlList[0], _urlList[3] },
-                    new[] { "Amazon", "Idefix" }));
-            _threadAmazon.Start();
+
+            if (_tempBooks.Count == 0)
+            {
+                _thread2 = new Thread(() => FindElementsAllWebsitesPartOne(json?.Skip(2).Take(5).ToList()));
+                _thread2.Start();
+
+               
+
+                _thread1 = new Thread(() =>
+                    FindElementsAllWebsitesPartOne(json?.Skip(7).Take(5).ToList()));
+                _thread1.Start();
 
 
-            _threadKidega = new Thread(() =>
-                FindElementKidega(new[] { By.CssSelector("img[class='lazyload activeted loadedImg']"), By.CssSelector("img[class*='stImage']") }, new[] { _urlList[2], _urlList[1] },
-                    new[] { "Kidega", "Bkm" }));
-            _threadKidega.Start();
+                _thread2.Join();
+                _thread1.Join();
 
-            //_threadBkm = new Thread(() => FindElementBkm(By.CssSelector("img[class*='stImage']"), _urlList[1], "Bkm"));
-            //_threadBkm.Start();
+                var bookGroupingByPublisher = _books.GroupBy(b => new { Publisher = b.Publisher.ToLower(), b.Name })
+                                                .Select(b => new BookViewModel { Publisher = b.Key.Publisher, Name = b.Key.Name, Books = b.ToList() })
+                                                .Where(b => b.Books.Count() > 1).ToList();
+                TempData["Books"] = bookGroupingByPublisher;
+                _tempBooks = bookGroupingByPublisher;
+            }
 
-            _threadAmazon.Join();
-            //_threadBkm.Join();
-            _threadKidega.Join();
+            else
+                TempData["Books"] = _tempBooks;
 
 
-
+            Debug.WriteLine("**************************************");
+            Debug.WriteLine($"Elapsed time {stopwatch.ElapsedMilliseconds} ");
+            stopwatch.Stop();
             return View("SearchResults");
+        }
+        [HttpGet]
+        public IActionResult GetComparedBooks(string publisher, string bookName)
+        {
+            var comparedBooks = _tempBooks?.Where(b => b.Publisher == publisher && b.Name == bookName).ToList();
+            var orderedBooks = comparedBooks[0].Books.OrderBy(b => PriceConvertToDouble(b.Price)).ToList();
+            return View("ComparedBookList", orderedBooks);
         }
 
         public void GetChromeOptions()
@@ -116,75 +103,120 @@ namespace BookPriceComparasion.WebUI.Controllers
             _chromeOptions.AddArgument("--ignore-certificate-errors");
             _chromeOptions.AddArgument("no-sandbox");
             _chromeOptions.AddArgument("--disable-gpu");
-           //_chromeOptions.AddArgument("--headless");
+            _chromeOptions.AddArgument("--headless");
         }
 
-        public void FindElementAmazon(By[] by, string[] url, string[] websiteName)
+      
+        public void FindElementsAllWebsitesPartOne(List<ItemXPath> itemXPaths)
         {
-
-            for (int i = 0; i < by.Length; i++)
+            using var driver = new ChromeDriver(_chromeOptions);
+            for (int i = 0; i < itemXPaths.Count; i++)
             {
                 try
                 {
-                    using var driver = new ChromeDriver(_chromeOptions);
-                    driver.Navigate().GoToUrl(url[i] + _query);
-                    if (websiteName[i] == "Idefix") Thread.Sleep(1000);
-                    _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-                    _wait.Until(webDriver => webDriver.FindElement(by[i]).Displayed);
-                    var elements = driver.FindElements(by[i]);
+                    driver.Navigate().GoToUrl(itemXPaths[i].WebsiteSearchUrl + _query);
+                    if (itemXPaths[i].WebsiteName == "Idefix") Thread.Sleep(1000);
+                    IJavaScriptExecutor js = driver;
+                    js.ExecuteScript("window.scrollTo(0, 1000)");
+                    Thread.Sleep(1000);
+                    if (itemXPaths[i].WebsiteName == "Kitapyurdu")
+                    {
+                        bool isElementExist = IsElementPresent(driver, By.XPath("//input[@name='selected_in_stock']"));
+                        if (isElementExist)
+                        {
+                            var element = driver.FindElement(By.XPath("//input[@name='selected_in_stock']"));
+                            Actions action = new Actions(driver);
+                            action.MoveToElement(element).Click().Build().Perform();
+                        }
 
-                    TempData[$"{websiteName[i]}BookImage"] = elements.Select(x => x.GetAttribute("src")).Take(10).ToList();
+                    }
+                    if (IsElementPresent(driver, By.XPath(itemXPaths[i].Image)))
+                        FindElements(driver, itemXPaths[i]);    
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    throw;
                 }
             }
         }
-
-
-        public void FindElementBkm(By by, string url, string websiteName)
+        private void FindElements(IWebDriver driver, ItemXPath itemXPath)
         {
-            using var driver = new ChromeDriver(_chromeOptions);
-            driver.Navigate().GoToUrl(url + _query);
-            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-            _wait.Until(webDriver => webDriver.FindElement(by).Displayed);
-            IWebElement firstResult = driver.FindElement(by);
-            TempData["BkmBookImage"] = firstResult.GetAttribute("src");
-
-
+            var names = driver.FindElements(By.XPath(itemXPath.Name));
+            var authors = driver.FindElements(By.XPath(itemXPath.Author));
+            var publishers = driver.FindElements(By.XPath(itemXPath.Publisher));
+            var prices = driver.FindElements(By.XPath(itemXPath.Price));
+            var images = driver.FindElements(By.XPath(itemXPath.Image));
+            var detailUrls = driver.FindElements(By.XPath(itemXPath.DetailLink));
+            string website = itemXPath.WebsiteName;
+            var booksListViewModel = new BooksListViewModel { Authors = authors, Images = images, Names = names, Prices = prices, Publishers = publishers, Website = website, DetailUrls = detailUrls, WebsiteLogo = itemXPath.WebsiteLogo };
+            SaveToList(booksListViewModel, itemXPath);
 
         }
 
-        public void FindElementKidega(By[] by, string[] url, string[] websiteName)
+
+        private void SaveToList(BooksListViewModel booksListViewModel, ItemXPath itemXPath)
         {
-            for (int i = 0; i < by.Length; i++)
+            int lastNumber = booksListViewModel.Names.Count > 15 ? 15 : booksListViewModel.Names.Count;
+            for (int i = 0; i < lastNumber; i++)
             {
-                using var driver = new ChromeDriver(_chromeOptions);
-                driver.Navigate().GoToUrl(url[i] + _query);
-                if (websiteName[i] == "Bkm")
+                var book = new Book
                 {
-                    IJavaScriptExecutor js = driver;
-                    //js.ExecuteScript("window.scrollTo(0, 400)");
-                    js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
-                    Thread.Sleep(1000);
-                }
-                _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-                _wait.Until(webDriver => webDriver.FindElement(by[i]).Displayed);
-                
-                var elements = driver.FindElements(by[i]);
-                TempData[$"{websiteName[i]}BookImage"] = elements.Select(x => x.GetAttribute("src")).Take(10).ToList();
+                    Id = i + 1,
+                    Author = booksListViewModel.Authors[i].GetAttribute("innerText"),
+                    Image = booksListViewModel.Images[i].GetAttribute("src"),
+                    Name = booksListViewModel.Names[i].GetAttribute("innerText"),
+                    Price = booksListViewModel.Prices[i].GetAttribute("innerText"),
+                    Publisher = booksListViewModel.Publishers.Count == 0 ? "" : booksListViewModel.Publishers[i].GetAttribute("innerText"),
+                    DetailUrl = booksListViewModel.DetailUrls[i].GetAttribute("href"),
+                    WebsiteName = booksListViewModel.Website,
+                    WebsiteLogo = booksListViewModel.WebsiteLogo,
+                };
 
+                if (booksListViewModel.Website == "Eganba") book.Price = book.Price.Split(' ')[1];
+                if (booksListViewModel.Website == "Pandora")
+                    book.Price = book.Price.Replace("Site Fiyatı:", "");
+                if (booksListViewModel.Website == "Bkm")
+                    book.Price = book.Price.Replace("Sepete Ekle", "");
+
+                if (IsPriceValid(book.Price))
+                    _books.Add(book);
             }
-
-
         }
 
-        public IActionResult Privacy()
+       
+        private static double PriceConvertToDouble(string price)
         {
-            return View();
+            string replacedPrice = price
+                .Replace("\n", "")
+                .Replace("\r", "")
+                .Replace("₺", "")
+                .Replace("TL", "")
+                .Replace(",", ".")
+                .Trim();
+            return Convert.ToDouble(replacedPrice);
         }
+
+
+        private static bool IsPriceValid(string price)
+        {
+            if (price.Contains("TL") || price.Contains("₺"))
+                return true;
+
+
+            return false;
+        }
+        private bool IsElementPresent(IWebDriver driver, By by)
+        {
+            try
+            {
+                driver.FindElement(by);
+                return true;
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

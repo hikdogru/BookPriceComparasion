@@ -1,46 +1,38 @@
-﻿@{
+﻿@model List<BookViewModel>
+@{
     ViewBag.Title = "title";
     Layout = "_Layout";
+    var books = (List<BookViewModel>)TempData["Books"];
 }
 
+@await Html.PartialAsync("~/Views/Shared/_BookSearchPartial.cshtml")
 
 <div class="row">
-
-    @foreach (var image in (List<string>)TempData["AmazonBookImage"])
-    {
-        <div class="col-md-3">
-            <h3>Amazon</h3>
-            <img src="@image" alt="Amazon Image" />
-        </div>
-    }
-    <hr />
-
-
-    @foreach (var image in (List<string>)TempData["KidegaBookImage"])
-    {
-        <div class="col-md-3">
-            <h3>Kidega</h3>
-            <img src="@image" alt="Kidega Image" />
-        </div>
-    }
-
-    @if (TempData["BkmBookImage"] != null)
-    {
-        foreach (var image in (List<string>)TempData["BkmBookImage"])
+    @if (books.Count() != 0)
+        foreach (var bookViewModel in books)
         {
-            <div class="col-md-3">
-                <h3>Bkmkitap</h3>
-                <img src="@image" alt="Bkm Image" />
-            </div>
 
+            <div class="col-sm-6 col-md-4 col-lg-3 " style="width:200px; max-height:500px;height:auto;margin-bottom:5px;">
+                <form method="get" asp-action="GetComparedBooks" asp-controller="Home">
+                    <input type="hidden" name="bookName" value="@bookViewModel.Name" />
+                    <input type="hidden" name="publisher" value="@bookViewModel.Publisher" />
+                    <img src="@bookViewModel.Books[0].Image" alt="Book Image" style="width: 150px; height: 250px; object-fit: cover; " />
+                    <p>@bookViewModel.Name</p>
+                    <p>Yayınevi: @bookViewModel.Publisher </p>
+                    <p> <button class="btn btn-primary" style="width:80%;"> Seç </button> </p>
+
+                </form>
+            </div>
         }
-    }
-    
-    @foreach (var image in (List<string>) TempData["IdefixBookImage"])
-    {
-        <div class="col-md-3">
-            <h3>Idefix</h3>
-            <img src="@image" alt="Idefix Image"/>
-        </div>
-    }
+
+
+
 </div>
+
+
+@if (books.Count() == 0)
+{
+    <div class="alert alert-danger" role="alert">
+        Kitap bulunamadı!
+    </div>
+}

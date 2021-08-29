@@ -1,27 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "H:\\Halil-Backup\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI\\BookPriceComparasion.WebUI.csproj": {}
+    "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI\\BookPriceComparasion.WebUI.csproj": {}
   },
   "projects": {
-    "H:\\Halil-Backup\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI\\BookPriceComparasion.WebUI.csproj": {
+    "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI\\BookPriceComparasion.WebUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\Halil-Backup\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI\\BookPriceComparasion.WebUI.csproj",
+        "projectUniqueName": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI\\BookPriceComparasion.WebUI.csproj",
         "projectName": "BookPriceComparasion.WebUI",
-        "projectPath": "H:\\Halil-Backup\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI\\BookPriceComparasion.WebUI.csproj",
-        "packagesPath": "C:\\Users\\Halil~\\.nuget\\packages\\",
-        "outputPath": "H:\\Halil-Backup\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI\\obj\\",
+        "projectPath": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI\\BookPriceComparasion.WebUI.csproj",
+        "packagesPath": "C:\\Users\\Halil\\.nuget\\packages\\",
+        "outputPath": "H:\\GithubProjects\\BookPriceComparasion\\BookPriceComparasion.WebUI\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Halil~\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Halil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -46,10 +40,6 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
-            "AsyncChromeDriver": {
-              "target": "Package",
-              "version": "[0.5.6, )"
-            },
             "Selenium.WebDriver": {
               "target": "Package",
               "version": "[3.141.0, )"

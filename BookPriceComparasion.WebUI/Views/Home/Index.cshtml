@@ -1,11 +1,6 @@
-﻿@model String
+﻿
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <form method="get" asp-action="Search" , asp-controller="Home">
-        <input type="text" name="query" id="query" placeholder="Search Query" autocomplete="off" />
-        <button type="submit">Search</button>
-    </form>
-</div>
+@await Html.PartialAsync("~/Views/Shared/_BookSearchPartial.cshtml")
